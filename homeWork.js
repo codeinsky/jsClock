@@ -1,5 +1,9 @@
 console.log("work check");
-var data = [{hours:"00" , minutes:"00" , seconds:"00"}];
+var data = [{hours:"00", minutes:"00" , seconds:0}];
+var showSeconds = "00"; 
+var showMinutes = "00"; 
+var showHours   = "00"; 
+
 var secTag = document.createElement("span");
 var minTag = document.createElement("span");
 var hTag = document.createElement("span");
@@ -14,8 +18,14 @@ clock.append(minTag, ":");
 clock.append(secTag);
 
 function countSeconds(){
-	data[0].seconds = Number(data[0].seconds + 1);
-	secTag.textContent = data[0].seconds ;
+	data[0].seconds = data[0].seconds + 1;
+	if (data[0].seconds<10) {
+		showSeconds = "0" + data[0].seconds;
+	}
+	else {
+		showSeconds = data[0].seconds;
+	}
+	secTag.textContent = showSeconds ;
 	setBackGround();
 	if (data[0].seconds==59) {
 		data[0].seconds=0;
@@ -23,7 +33,14 @@ function countSeconds(){
 }
 function countMinutes(){
 	data[0].minutes = Number(data[0].minutes + 1);
-	minTag.textContent = data[0].minutes ; 
+	if (data[0].minutes < 10 ) {
+		showMinutes = "0" + data[0].minutes;
+	}
+	else {
+		showMinutes = data[0].minutes;
+	}
+
+	minTag.textContent = showMinutes ; 
 	if (data[0].minutes==59) {
 		data[0].minutes=0;
 	}
@@ -38,9 +55,9 @@ function countHours(){
 }
 
 function setBackGround(){
-	var strColor = "#00000" + data[0].seconds;
-	console.log(strColor);
-	document.body.style.backgroundColor = strColor;
+	var colorStr = "#" + showHours+showMinutes +showSeconds;
+	console.log(colorStr);
+	document.body.style.backgroundColor = colorStr;
 }
 
 
