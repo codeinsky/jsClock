@@ -1,16 +1,20 @@
 console.log("work check");
+// variable data for JSON import : step 2
 var data = [{hours:"00", minutes:"00" , seconds:0}];
-var showSeconds = "00"; 
-var showMinutes = "00"; 
-var showHours   = "00"; 
 
+// string with "0" shown on the clock 
+var showSeconds = "00"; 
+var showMinutes = data[0].minutes; 
+var showHours   = data[0].hours; 
+
+// Creates span TAGS for HH:MM:SS
 var secTag = document.createElement("span");
 var minTag = document.createElement("span");
 var hTag = document.createElement("span");
 
-secTag.textContent = data[0].seconds ;
-minTag.textContent = data[0].minutes ;
-hTag.textContent = data[0].hours ;
+secTag.textContent = showSeconds ;
+minTag.textContent = showMinutes ;
+hTag.textContent = showHours ;
 
 var clock = document.querySelector("#Clock");
 clock.append(hTag , ":");
@@ -48,14 +52,20 @@ function countMinutes(){
 
 function countHours(){
 	data[0].hours = Number(data[0].hours + 1);
-	hTag.textContent = data[0].hours ; 
+	if (data[0].hours <10) {
+		showHours = "0" + data[0].hours;
+	}
+	else {
+		showHours = data[0].hours;
+	}
+	hTag.textContent = showHours ; 
 	if (data[0].hours==12) {
 		data[0].hours=0;
 	}
 }
 
 function setBackGround(){
-	var colorStr = "#" + showHours+showMinutes +showSeconds;
+	var colorStr = "#" + showSeconds+showMinutes+showMinutes;
 	console.log(colorStr);
 	document.body.style.backgroundColor = colorStr;
 }
